@@ -1,0 +1,52 @@
+<script setup>
+    import { ref } from 'vue';
+    import { useAuthStore } from '../../stores/auth'
+    import { useRouter } from 'vue-router'
+    import { useToast } from 'vue-toastification'
+
+    import InputDefault from '@components/inputs/InputDefault.vue'
+    import InputPassword from '@components/inputs/InputPassword.vue';
+    import ButtonDefault from '@components/ui/buttons/ButtonDefault.vue';
+
+    const email = ref('')
+    const password = ref('')
+    const name = ref('')
+    const authStore = useAuthStore()
+    const router = useRouter()
+    const toast = useToast()
+
+    const handleSubmit = async (event) => {
+        try {
+            await authStore.register({
+                email: email.value,
+                password: password.value,
+                name: name.value
+            });
+            
+            toast.success('Cadastro realizado com sucesso!');
+            router.push('/');
+            
+        } catch (error) {
+            toast.error(error.message || 'Erro no cadastro');
+        }
+    }
+</script>
+
+<template>
+    <form @submit.prevent.stop="handleSubmit">
+        <div class="space-y-4">
+            <div>
+                <InputDefault type="email" v-model="email" placeholder="yourbestmail@gmail.com"/>
+            </div>
+            <div>
+                <InputDefault type="text" v-model="name" placeholder="Digite seu nome"/>
+            </div>
+            <div>
+                <InputPassword v-model="password"/>
+            </div>
+            <div>
+                <ButtonDefault :type="'submit'"/>
+            </div>
+        </div>
+    </form>
+</template>

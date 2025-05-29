@@ -1,0 +1,20 @@
+<script setup>
+    defineProps({
+        modelValue: [String, Number],
+        type: { type: String, default: 'text' },
+        customClass: { type: String, default: 'w-full' },
+        placeholder: { type: String, default: '' }
+    })
+
+    defineEmits(['update:modelValue'])
+</script>
+
+<template>
+    <input 
+        :type="type"
+        :class="['border-gray-200 focus:border-green-500 border-2 rounded-md px-3 py-2 outline-0', customClass]"
+        :value="modelValue"
+        :placeholder="placeholder"
+        @input="$emit('update:modelValue', $event.target.value)"
+    />
+</template>
