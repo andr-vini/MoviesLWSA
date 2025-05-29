@@ -26,19 +26,18 @@
             
         } catch (error) {
             toast.error(error.message || 'Erro no login');
-            console.error('Erro no login:', error)
         }
     }
 </script>
 
 <template>
-    <form @submit.prevent.stop="handleSubmit">
+    <form @submit.prevent="handleSubmit">
         <div class="space-y-4">
             <div>
-                <InputDefault type="email" v-model="email" placeholder="yourbestmail@gmail.com"/>
+                <InputDefault type="email" required v-model="email" placeholder="yourbestmail@gmail.com"/>
             </div>
             <div>
-                <InputPassword v-model="password"/>
+                <InputPassword v-model="password" required/>
             </div>
             <div>
                 <ButtonDefault :type="'submit'"/>
