@@ -33,16 +33,16 @@
 </script>
 
 <template>
-    <form @submit.prevent.stop="handleSubmit">
+    <form @submit.prevent="handleSubmit">
         <div class="space-y-4">
             <div>
-                <InputDefault type="email" v-model="email" placeholder="yourbestmail@gmail.com"/>
+                <InputDefault required type="email" v-model="email" placeholder="yourbestmail@gmail.com"/>
             </div>
             <div>
-                <InputDefault type="text" v-model="name" placeholder="Digite seu nome"/>
+                <InputDefault required type="text" v-model="name" placeholder="Digite seu nome"/>
             </div>
             <div>
-                <InputPassword v-model="password"/>
+                <InputPassword required v-model="password"/>
             </div>
             <div>
                 <ButtonDefault :type="'submit'"/>
