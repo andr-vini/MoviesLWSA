@@ -29,7 +29,7 @@ echo "Banco de dados conectado com sucesso!"
 
 # Executa as migrations
 echo "Executando migrations..."
-php artisan migrate --force
+php artisan migrate --seed --force
 
 # Inicia o PHP-FPM
 php-fpm
