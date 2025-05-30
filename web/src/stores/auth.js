@@ -80,10 +80,6 @@ export const useAuthStore = defineStore('auth', {
                 try {
                     await this.fetchUser()
                 } catch (error) {
-                    // Se falhar, remove o token inválido
-                    toast.error('Tempo de sessão expirado, faça login novamente');
-                    // console.error('Token inválido, fazendo logout:', error)
-                    this.logout()
                     setTimeout(() => {
                         router.push('/login')
                     }, 2000)
