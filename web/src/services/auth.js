@@ -10,6 +10,15 @@ export const authService = {
 		}
 	},
 
+	async getCurrentUser() {
+		try {
+			const response = await api.get('/user')
+			return response.data
+		} catch (error) {
+			throw error.response?.data || error
+		}
+	},
+	
 	async register(credentials) {
 		try{
 			const response = await api.post('/register', credentials)
