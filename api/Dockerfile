@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y \
     curl
 
 # Instala extensões PHP necessárias para Laravel
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd intl
 
 # Instala Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
