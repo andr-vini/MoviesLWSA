@@ -27,7 +27,10 @@ export const useAuthStore = defineStore('auth', {
                 authService.setToken(response.access_token)
                 return response
             } catch (error) {
-                throw error
+                const message = error.status === 401 
+                    ? 'Email ou senha incorretos' 
+                    : 'Erro no servidor. Tente novamente.'
+                throw new Error(message)
             } finally {
                 this.isLoading = false
             }
@@ -42,8 +45,6 @@ export const useAuthStore = defineStore('auth', {
                 this.user = user
                 return user
             } catch (error) {
-                // Se não conseguir buscar o usuário, é porque o token é inválido
-                toast.error('Tempo de sessão expirado, faça login novamente');
                 this.logout()
                 throw error
             } finally {
@@ -80,6 +81,9 @@ export const useAuthStore = defineStore('auth', {
                 try {
                     await this.fetchUser()
                 } catch (error) {
+                    toast.error('Sessão expirada, faça login novamente')
+                    this.logout()
+
                     setTimeout(() => {
                         router.push('/login')
                     }, 2000)

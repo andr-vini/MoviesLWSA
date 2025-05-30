@@ -6,7 +6,7 @@ export const authService = {
 			const response = await api.post('/login', credentials)
 			return response.data
 		} catch (error) {
-			throw error.response?.data || error
+			throw error.response || error
 		}
 	},
 
