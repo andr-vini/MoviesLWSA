@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { authService } from '../services/auth.js'
 import { useToast } from 'vue-toastification'
+import router from '../router'
 
 const toast = useToast()
 
@@ -84,7 +85,7 @@ export const useAuthStore = defineStore('auth', {
                     // console.error('Token inválido, fazendo logout:', error)
                     this.logout()
                     setTimeout(() => {
-                        window.location.href = '/login'
+                        router.push('/login')
                     }, 2000)
                 }
             }
