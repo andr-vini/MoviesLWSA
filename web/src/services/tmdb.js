@@ -45,9 +45,6 @@ export const tmdbService = {
                 params: {
                     'query': movieName,
                     'page': page 
-                },
-                headers: {
-                    'Authorization' : `Bearer ${token}`
                 }
             })
 
