@@ -12,45 +12,44 @@
     const searchQuery = ref('');
     const movies = ref([])
     const isLoading = ref(false)
-    const currentPage = ref(0)
+    const currentPage = ref(1)
     const totalResults = ref(0)
     const totalPages = ref(0)
 
-    async function sendRequest() {
-        isLoading.value = true
-        try {
-            const response = await tmdbService.searchMovie(searchQuery.value, currentPage.value)
-            movies.value = response.movies
-            totalResults.value = response.totalResults
-            totalPages.value = response.totalPages
-            console.log(currentPage.value)
-        } catch (error) {
-            toast.error(error.message)
-            movies.value = []
-        } finally {
-            isLoading.value = false
-        }
-    }
     const handleSearch = async (event) => {
-        currentPage.value = 1
-        sendRequest()
+        if(searchQuery.value.trim() != ''){
+            isLoading.value = true
+            try {
+                const response = await tmdbService.searchMovie(searchQuery.value, currentPage.value)
+                movies.value = response.movies
+                totalResults.value = response.totalResults
+                totalPages.value = response.totalPages
+            } catch (error) {
+                toast.error(error.message)
+                movies.value = []
+            } finally {
+                isLoading.value = false
+            }
+        }
     }
 
-    watch(currentPage, async (newPage, oldPage) => {
-        if (newPage !== oldPage && searchQuery.value.trim()) {
-            sendRequest()
+    watch(searchQuery, async (newQuery, oldQuery) => {
+        if (newQuery !== oldQuery && currentPage.value !== 1) {
+            currentPage.value = 1
         }
     })
-    
+
     const previousPage = () => {
         if (currentPage.value > 1) {
             currentPage.value--
+            handleSearch()
         }
     }
 
     const nextPage = () => {
         if (currentPage.value < totalPages.value) {
             currentPage.value++
+            handleSearch()
         }
     }
 </script>
@@ -70,7 +69,7 @@
                 <span v-if="isLoading">
                     Procurando filmes...
                 </span>
-                <span v-if="totalResults > 0">
+                <span v-if="totalResults > 0 && !isLoading">
                 {{ totalResults }} resultados encontrados
                 </span>
             </div>
