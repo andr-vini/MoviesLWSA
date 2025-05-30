@@ -39,7 +39,6 @@ export const useAuthStore = defineStore('auth', {
                 this.isLoading = true
                 const user = await authService.getCurrentUser()
                 this.user = user
-                console.log(user)
                 return user
             } catch (error) {
                 // Se não conseguir buscar o usuário, é porque o token é inválido
