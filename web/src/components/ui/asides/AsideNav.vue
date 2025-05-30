@@ -1,9 +1,10 @@
 <script setup>
-    import { ref } from 'vue'
+    import { ref, markRaw } from 'vue'
     import { computed } from 'vue'
     import { useRoute, useRouter } from 'vue-router'
     import { useAuthStore } from '@store/auth'
     import { useAsideNavStore } from '@store/asideNav'
+    import HomeIcon from '@components/icons/HomeIcon.vue'
 
     const asideOpen = ref(true);
     const asideNavStore = useAsideNavStore();
@@ -13,11 +14,12 @@
         {
             name: 'Buscar Filmes',
             to: '/',
-            icon: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9,22 9,12 15,12 15,22"></polyline></svg>'
+            icon: markRaw(HomeIcon)
         },
         {
             name: 'Favoritos',
-            to: '/favoritos'
+            to: '/favoritos',
+            icon: 'teste'
         }
     ];
 
@@ -44,7 +46,7 @@
                     <li v-for="item in navItems" :key="item.name">
                         <router-link :to="item.to" :class="['whitespace-nowrap flex px-3 py-2 rounded-md hover:ml-3 hover:p-3 transition-all duration-200', isActive(item.to) ? 'bg-green-500 text-white' : 'bg-gray-200']">
                             <div class="flex gap-2">
-                                <span v-html="item?.icon"></span>
+                                <component :is="item.icon" class="w-5 h-5" />
                                 <span> {{ item.name }} </span>
                             </div>
                         </router-link>

@@ -24,7 +24,7 @@
             </svg>
         </span>
         <div class="flex justify-between items-center w-full">
-            <h1>Bem-vindo, {{ authStore.user?.name }}!</h1>
+            <h1 class="text-nowrap">Bem-vindo, {{ authStore.user?.name }}!</h1>
             <ButtonDefaultCancel @click="handleLogout"> Sair </ButtonDefaultCancel>
         </div>
     </div>
