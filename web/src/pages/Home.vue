@@ -33,6 +33,7 @@
     }
     const handleSearch = async (event) => {
         currentPage.value = 1
+        sendRequest()
     }
 
     watch(currentPage, async (newPage, oldPage) => {
@@ -40,6 +41,18 @@
             sendRequest()
         }
     })
+    
+    const previousPage = () => {
+        if (currentPage.value > 1) {
+            currentPage.value--
+        }
+    }
+
+    const nextPage = () => {
+        if (currentPage.value < totalPages.value) {
+            currentPage.value++
+        }
+    }
 </script>
 
 <template>
@@ -63,8 +76,8 @@
             </div>
             <MovieGrid :movies="movies"/>
             <div class="flex justify-center gap-4 mt-10">
-                <ButtonDefaultCancel @click="currentPage--" v-show="currentPage > 1">Página Anterior</ButtonDefaultCancel>
-                <ButtonDefaultConfirm @click="currentPage++" v-show="currentPage < totalPages">Próxima Página</ButtonDefaultConfirm>
+                <ButtonDefaultCancel @click="previousPage" v-show="currentPage > 1">Página Anterior</ButtonDefaultCancel>
+                <ButtonDefaultConfirm @click="nextPage" v-show="currentPage < totalPages">Próxima Página</ButtonDefaultConfirm>
             </div>
         </div>
     </LayoutDefault>
