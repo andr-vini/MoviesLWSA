@@ -6,7 +6,7 @@
 
     import InputDefault from '@components/inputs/InputDefault.vue'
     import InputPassword from '@components/inputs/InputPassword.vue'
-    import ButtonDefault from '@components/ui/buttons/ButtonDefault.vue'
+    import ButtonDefaultConfirm from '@components/ui/buttons/ButtonDefaultConfirm.vue'
 
     const email = ref('')
     const password = ref('')
@@ -40,7 +40,7 @@
                 <InputPassword v-model="password" required/>
             </div>
             <div>
-                <ButtonDefault :type="'submit'"/>
+                <ButtonDefaultConfirm :type="'submit'"> Enviar </ButtonDefaultConfirm>
             </div>
         </div>
     </form>
