@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { authService } from '../services/auth.js'
 import { useToast } from 'vue-toastification'
-import router from '../router'
+// import router from '../router'
 
 const toast = useToast()
 
@@ -83,9 +83,9 @@ export const useAuthStore = defineStore('auth', {
                 } catch (error) {
                     toast.error('Sessão expirada, faça login novamente')
                     this.logout()
-
+                    
                     setTimeout(() => {
-                        router.push('/login')
+                        window.location.href = '/login'
                     }, 2000)
                 }
             }

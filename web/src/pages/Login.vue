@@ -1,6 +1,6 @@
 <script setup>
     import CardDefault from '@components/ui/cards/CardDefault.vue'
-    import LoginForm from '@components/forms/LoginForm.vue'
+    import { LoginForm } from '@components/forms'
 </script>
 
 <template>
@@ -16,7 +16,7 @@
             <div class="px-10 sm:px-0 mt-7">
                 <CardDefault customClass="mx-auto max-w-[500px]">
                     <LoginForm/>
-                    <span>Não tem conta ainda? </span><router-link to="/register">Registre-se</router-link>
+                    <span>Não tem conta ainda? </span><router-link class="text-green-500 hover:decoration-solid hover:underline" to="/register">Registre-se</router-link>
                 </CardDefault>
             </div>
         </div>

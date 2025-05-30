@@ -40,7 +40,7 @@
                 <InputPassword v-model="password" required/>
             </div>
             <div>
-                <ButtonDefaultConfirm :type="'submit'"> Enviar </ButtonDefaultConfirm>
+                <ButtonDefaultConfirm customClass="w-full py-2" :type="'submit'"> Enviar </ButtonDefaultConfirm>
             </div>
         </div>
     </form>

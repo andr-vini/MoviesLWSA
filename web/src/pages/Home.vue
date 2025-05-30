@@ -4,9 +4,8 @@
     import { useToast } from 'vue-toastification'
     import LayoutDefault from '@components/layouts/LayoutDefault.vue'
     import InputDefault from '@components/inputs/InputDefault.vue'
-    import ButtonDefaultConfirm from '@components/ui/buttons/ButtonDefaultConfirm.vue'
-    import ButtonDefaultCancel from '@components/ui/buttons/ButtonDefaultCancel.vue'
-    import MovieGrid from '@components/movies/MovieGrid.vue'
+    import { ButtonDefaultConfirm, ButtonDefaultCancel } from '@components/ui/buttons'
+    import { MovieGrid } from '@components/movies'
 
     const toast = useToast()
     const searchQuery = ref('');
