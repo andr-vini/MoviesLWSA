@@ -19,13 +19,7 @@ apiTmdb.interceptors.request.use(
 
 apiTmdb.interceptors.response.use(
     (response) => response,
-    (error) => {
-        const message = error.response?.data?.status_message || 
-                      error.response?.data?.message || 
-                      error.message || 
-                      'Erro na requisição'
-        return Promise.reject(new Error(message))
-    }
+    (error) => Promise.reject(error)
 )
 export const tmdbService = {
     checkApiReadAccess() {
@@ -39,8 +33,7 @@ export const tmdbService = {
 
 	async searchMovie(movieName, page) {
         try{
-
-            const token = this.checkApiReadAccess()
+            this.checkApiReadAccess()
             const response = await apiTmdb.get('/search/movie', {
                 params: {
                     'query': movieName,
@@ -56,11 +49,50 @@ export const tmdbService = {
                     currentPage: response.data.page
                 }
             } else {
-                throw new Error(response.data.status_message || 'Nenhum filme encontrado')
+                throw new Error('Nenhum filme encontrado')
             }
         } catch (error) {
-            throw error.response?.data || error
-        }
+            let message = 'Erro na requisição para buscar o filme';
 
+            if (error.response) {
+                const status = error.response.status;
+
+                switch (status) {
+                    case 401:
+                        message = 'Chave de API inválida, insira uma API Key válida';
+                        break;
+                    case 404:
+                        message = 'Recurso não encontrado';
+                        break;
+                    case 500:
+                    case 502:
+                    case 503:
+                        message = 'Erro interno no servidor do TMDB';
+                        break;
+                    default:
+                        message = error.response.data?.status_message || error.message || message;
+                        break;
+                }
+            } else if (error.request) {
+                message = 'Nenhuma resposta recebida do servidor do TMDB';
+            } else {
+                message = error.message || message;
+            }
+
+            throw new Error(message);
+            
+        }
+    },
+
+    async getGenders() {
+        try{
+            this.checkApiReadAccess();
+            const response = await apiTmdb.get('/genre/movie/list', {
+                language: 'pt-br'
+            });
+            return response;
+        } catch (error) {
+            throw error.response || error;
+        }
     }
 }
