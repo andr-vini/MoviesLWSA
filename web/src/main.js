@@ -20,14 +20,14 @@ authStore.initAuth()
 
 app.use(Toast, {
   position: "top-right",
-  timeout: 3029,
+  timeout: 5000,
   closeOnClick: true,
-  pauseOnFocusLoss: true,
-  pauseOnHover: true,
+  pauseOnFocusLoss: false,
+  pauseOnHover: false,
   draggable: true,
   draggablePercent: 0.6,
   showCloseButtonOnHover: false,
-  hideProgressBar: false,
+  hideProgressBar: true,
   closeButton: "button",
   icon: true,
   rtl: false
