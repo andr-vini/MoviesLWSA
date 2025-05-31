@@ -2,64 +2,78 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Http\Requests\LoginUserRequest;
+use App\Http\Requests\RegisterUserRequest;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Laravel\Sanctum\PersonalAccessToken;
+use App\Services\UserService;
 
 class AuthController extends Controller
 {
-    function login(Request $request)
+
+    protected $userService;
+
+    public function __construct(UserService $userService)
     {
-        $validated = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|min:4'
-        ]);
-
-        if (Auth::attempt($validated)) {
-            $user = User::where('email', $validated['email'])->first();
-            $token = $user->createToken('access_token')->plainTextToken;
-
-            return response()->json([
-                'access_token' => $token,
-                'token_type' => 'Bearer',
-                'user' => $user
-            ]);
-        }
-
-        return response()->json([
-            'message' => 'Credenciais Inválidas'
-        ], 401);
+        $this->userService = $userService;
     }
 
-    function register(Request $request)
+    function login(LoginUserRequest $request)
     {
-        $validated = $request->validate([
-            'email' => 'required|email|unique:users,email',
-            'name' => 'required',
-            'password' => 'required|min:4',
-        ]);
+        try {
+            $validated = $request->validated();
 
-        $user = User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => $validated['password']
-        ]);
+            $dataReturned = $this->userService->authenticate($validated);
 
-        $token = $user->createToken('access_token')->plainTextToken;
+            return response()->json([
+                'access_token' => $dataReturned['token'],
+                'token_type' => 'Bearer',
+                'user' => $dataReturned['user']
+            ]);
+        } catch (\Exception $e) {
+            if ($e->getCode() === 401) {
+                return response()->json([
+                    'message' => 'Credenciais Inválidas'
+                ], 401);
+            }
 
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'Bearer',
-            'user' => $user,
-            'message' => 'Usuário cadastrado com sucesso'
-        ]);
+            return response()->json([
+                'message' => 'Ocorreu um erro no servidor'
+            ]);
+        }
+    }
+
+    function register(RegisterUserRequest $request)
+    {
+        try {
+            $data = $request->validated();
+            $dataReturned = $this->userService->store($data);
+
+            return response()->json([
+                'access_token' => $dataReturned['token'],
+                'token_type' => 'Bearer',
+                'user' => $dataReturned['user'],
+                'message' => 'Usuário cadastrado com sucesso'
+            ], 201);
+        } catch (\RuntimeException $e) {
+            return response()->json([
+                'error_message' => 'Ocorreu um erro ao tentar criar seu usuário'
+            ], 500);
+        }
     }
 
     function logout(Request $request)
     {
-        $token = $request->bearerToken();
-        $access_token = PersonalAccessToken::findToken($token);
-        $access_token->delete();
+        try {
+            $this->userService->logout($request);
+
+            return response()->json([
+                'message' => 'Logout realizado com sucesso.'
+            ], 200);
+        } catch (\RuntimeException $e) {
+            return response()->json([
+                'message' => 'Erro ao realizar logout.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 }

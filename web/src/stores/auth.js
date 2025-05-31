@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
 import { authService } from '../services/auth.js'
 import { useToast } from 'vue-toastification'
-// import router from '../router'
 
 const toast = useToast()
 
@@ -27,9 +26,18 @@ export const useAuthStore = defineStore('auth', {
                 authService.setToken(response.access_token)
                 return response
             } catch (error) {
-                const message = error.status === 401 
-                    ? 'Email ou senha incorretos' 
-                    : 'Erro no servidor. Tente novamente.'
+                let message = '';
+                switch (error.status) {
+                    case 401:
+                        message = 'Email ou senha incorretos';
+                        break;
+                    case 422:
+                        message = error.data?.message;
+                        break;
+                    default:
+                        message = 'Erro no servidor. Tente novamente mais tarde.';
+                        break;
+                }
                 throw new Error(message)
             } finally {
                 this.isLoading = false
@@ -45,7 +53,7 @@ export const useAuthStore = defineStore('auth', {
                 this.user = user
                 return user
             } catch (error) {
-                this.logout()
+                await this.logout()
                 throw error
             } finally {
                 this.isLoading = false
@@ -61,32 +69,27 @@ export const useAuthStore = defineStore('auth', {
                 authService.setToken(response.access_token)
                 return response
             } catch (error) {
-                throw error
+                const message = error.status === 422 ? error.data?.message : 'Ocorreu um erro no servidor, tente novamente mais tarde';
+                throw new Error(message)
             } finally {
                 this.isLoading = false
             }
         },
         
-        logout() {
-            authService.logout()
+        async logout() {
+            await authService.logout()
             this.token = null
             this.user = null
         },
         
         async initAuth() {
-            const token = localStorage.getItem('token')
-            this.token = token
-            
-            if (token) {
+            if (this.token) {
                 try {
                     await this.fetchUser()
                 } catch (error) {
                     toast.error('Sessão expirada, faça login novamente')
-                    this.logout()
-                    
-                    setTimeout(() => {
-                        window.location.href = '/login'
-                    }, 2000)
+                    await this.logout()
+                    window.location.href = '/login'
                 }
             }
         }

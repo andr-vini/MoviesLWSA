@@ -1,6 +1,6 @@
 <script setup>
-    import CardDefault from '@components/ui/cards/CardDefault.vue'
-    import { RegisterForm } from '@components/forms'
+import CardDefault from '@components/ui/cards/CardDefault.vue'
+import { RegisterForm } from '@components/forms'
 </script>
 
 <template>
@@ -15,8 +15,10 @@
             </div>
             <div class="px-10 sm:px-0 mt-7">
                 <CardDefault customClass="mx-auto max-w-[500px]">
-                    <RegisterForm/>
-                    <div class="text-center">Já tem uma conta? <router-link class="text-green-500 hover:decoration-solid hover:underline" to="/login">Entre</router-link></div>
+                    <RegisterForm />
+                    <div class="text-center mt-2">Já tem uma conta? <router-link
+                            class="text-green-500 hover:decoration-solid hover:underline"
+                            to="/login">Entre</router-link></div>
                 </CardDefault>
             </div>
         </div>
