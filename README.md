@@ -45,7 +45,7 @@ Uma aplicação completa de catálogo de filmes que integra com a API do The Mov
 - [x] **Migrations** - Estrutura de banco versionada
 - [x] **Seeders** - Dados de exemplo para testes
 
-## Arquitetura do Projeto
+## Arquitetura do Projeto em uma estrutura ASCII
 
 ```
 MoviesLWSA/
@@ -392,7 +392,7 @@ chmod -R 775 /var/www/storage /var/www/bootstrap/cache
 ## Notas de Desenvolvimento
 
 - O projeto utiliza **Laravel Sanctum** para autenticação de API
-- O frontend é uma **SPA completa** totalmente separada do backend, se comunicando através de API
+- O frontend é uma **SPA completa** totalmente separada do backend, se comunicando através de API Rest
 - **Proxy configurado** no Vite para comunicação com a API através do nginx
 - **Migrations automáticas** na inicialização do Docker
 - **Criação de Keys automáticas** na inicialização do Docker
