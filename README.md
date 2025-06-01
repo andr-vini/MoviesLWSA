@@ -45,7 +45,7 @@ Uma aplicação completa de catálogo de filmes que integra com a API do The Mov
 - [x] **Migrations** - Estrutura de banco versionada
 - [x] **Seeders** - Dados de exemplo para testes
 
-## Arquitetura do Projeto
+## Arquitetura do Projeto em uma estrutura ASCII
 
 ```
 MoviesLWSA/
