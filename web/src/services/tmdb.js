@@ -84,7 +84,7 @@ export const tmdbService = {
         }
     },
 
-    async getGenders() {
+    async getGenres() {
         try{
             this.checkApiReadAccess();
             const response = await apiTmdb.get('/genre/movie/list?language=pt');

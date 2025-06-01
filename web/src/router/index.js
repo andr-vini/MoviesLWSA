@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router"
-import { useAuthStore } from "../stores/auth"
+import { useAuthStore } from "@stores/auth"
 import { useToast } from 'vue-toastification'
 
 import Home from "@pages/Home.vue"

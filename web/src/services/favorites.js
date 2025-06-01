@@ -1,6 +1,6 @@
 import api from './api'
 
-export const favoritesService = {
+const favoritesService = {
     async addFavorite(movieData) {
         try{
             const response = await api.post('/favorite', {
@@ -35,3 +35,5 @@ export const favoritesService = {
         }
     }
 }
+
+export default favoritesService;
