@@ -237,6 +237,10 @@ O frontend já roda separado do backend, ele é configurado pelo docker e fica d
 
 O próprio docker se encarrega de instalar as dependências do Vue.js e rodar a aplicação na url informada anteriormente
 
+Caso o docker não tenha instalado a pasta node_modules, rode o seguinte comando
+```
+docker exec -it vue_frontend npm install
+```
 ## Como importar o banco de dados
 
 ### Usando Migrations
