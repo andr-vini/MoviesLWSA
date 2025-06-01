@@ -20,7 +20,7 @@ export function useGenres() {
 		loading.value = true
 
 		try {
-			const response = await tmdbService.getGenders();
+			const response = await tmdbService.getGenres();
 
 			genres.value = response.data.genres
 			localStorage.setItem('tmdb_genres', JSON.stringify(response.data.genres))
