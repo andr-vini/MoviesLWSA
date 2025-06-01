@@ -3,12 +3,6 @@
 # Entra no diretório da aplicação
 cd /var/www
 
-# Copia .env.example se não existir .env
-if [ ! -f .env ]; then
-    echo "Arquivo .env não encontrado. Criando a partir do .env.example..."
-    cp .env.example .env
-fi
-
 # Instala as dependências
 composer install
 
