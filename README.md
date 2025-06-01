@@ -167,7 +167,7 @@ GET    /api/favorites             # Listar favoritos do usuário
 ### 1. Clone o repositório
 
 ```bash
-git clone git clone https://github.com/andr-vini/MoviesLWSA.git
+git clone https://github.com/andr-vini/MoviesLWSA.git
 cd MoviesLWSA                    # Entra na pasta do projeto
 cp api/.env.example api/.env     # Copia o arquivo .env.example e renomeia para .env na pasta API
 cp web/.env.example web/.env     # Copia o arquivo .env.example e renomeia para .env na pasta WEB
