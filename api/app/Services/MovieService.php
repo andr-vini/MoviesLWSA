@@ -24,8 +24,11 @@ class MovieService
     public function store(array $data): Movie
     {
         try {
-            $data['genre_ids_tmdb'] = $data['genre_ids'];
-            $movie = Movie::where('id_tmdb', $data['id_tmdb'])->first();
+            if (isset($data['genre_ids'])) {
+                $data['genre_ids_tmdb'] = $data['genre_ids'];
+            }
+
+            $movie = $this->movieRepository->getMovieByTmdbId($data['id_tmdb']);
             if (!$movie) {
                 $created = $this->movieRepository->create($data);
                 return $created;
@@ -55,7 +58,7 @@ class MovieService
             $exists = $this->favoriteRepository->exists($userId, $movie->id);
 
             if ($exists) {
-                throw new \RuntimeException('Filme já está favoritado.');
+                throw new \Exception('Filme já está favoritado.');
             }
 
             $created = $this->favoriteRepository->create($data);
@@ -77,6 +80,11 @@ class MovieService
     {
         try {
             $movie = $this->movieRepository->getMovieByTmdbId($movieTmdbId);
+
+            if (!$movie) {
+                throw new \Exception("Filme não existe nos favoritos desse usuário", 404);
+            }
+
             $deleted = $this->favoriteRepository->delete($movie);
             return $deleted;
         } catch (\Exception $e) {

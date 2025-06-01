@@ -17,7 +17,7 @@ class MovieRepository
         return $movie;
     }
 
-    public function getMovieByTmdbId($id_tmdb): Movie
+    public function getMovieByTmdbId($id_tmdb)
     {
         return Movie::where('id_tmdb', $id_tmdb)->first();
     }
