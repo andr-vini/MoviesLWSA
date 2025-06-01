@@ -374,7 +374,7 @@ npm run build
 
 ### Problema: Erro de conexão com banco
 
-**Solução:** Aguarde alguns segundos para o MySQL inicializar completamente
+**Solução:** Aguarde um pouco para que o MySQL inicialize completamente
 
 ### Problema: Frontend não conecta com backend
 
@@ -382,7 +382,7 @@ npm run build
 
 ### Problema: Erro de permissão no Laravel
 
-**Solução:** Execute dentro do container:
+**Solução:** Execute os seguintes comandos dentro do container:
 
 ```bash
 chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
@@ -398,16 +398,3 @@ chmod -R 775 /var/www/storage /var/www/bootstrap/cache
 - **Criação de Keys automáticas** na inicialização do Docker
 - **Estrutura modular** com Services e Repositories seguindo os principios SOLID
 - **Tratamento de erros** implementado em todas as camadas
-
-## Contribuição
-
-Este projeto foi desenvolvido como parte de um teste técnico para a posição de Desenvolvedor Full Stack Júnior, demonstrando competências em:
-
-- Desenvolvimento de APIs REST com Laravel
-- Criação de SPAs com Vue.js
-- Integração com APIs externas (TMDB)
-- Containerização com Docker
-- Estruturação de banco de dados
-- Documentação técnica
-
----
