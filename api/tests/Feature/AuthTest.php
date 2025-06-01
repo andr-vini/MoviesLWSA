@@ -42,7 +42,6 @@ class AuthTest extends TestCase
             'name' => $this->faker->name,
             'email' => 'invalid-email',
             'password' => 'password123',
-            'password_confirmation' => 'password123',
         ];
 
         $response = $this->postJson('/api/register', $userData);
