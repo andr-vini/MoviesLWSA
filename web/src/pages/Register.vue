@@ -6,7 +6,7 @@ import { RegisterForm } from '@components/forms'
 <template>
     <div class="mx-auto">
         <header class="min-h-10 border-b-gray-200 border-b py-5">
-            <h2 class="text-center sm:text-left text-2xl text-green-600 font-semibold">Movies</h2>
+            <h2 class="text-center sm:text-left px-10 text-2xl text-green-600 font-semibold">Movies</h2>
         </header>
         <div class="mt-10">
             <div class="text-center">
