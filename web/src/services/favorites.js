@@ -13,7 +13,7 @@ export const favoritesService = {
             })
             return response.data;
         } catch (error) {
-            throw error.response || error;
+            throw error?.response || error;
         }
     },
 
@@ -22,7 +22,7 @@ export const favoritesService = {
             const response = await api.delete(`/favorite/${movieId}`);
             return response.data;
         } catch (error) {
-            throw error.response || error;
+            throw error?.response || error;
         }
     },
 
@@ -31,7 +31,7 @@ export const favoritesService = {
             const response = await api.get('/favorites');
             return response.data;
         } catch (error) {
-            throw error.response || error;
+            throw error?.response || error;
         }
     }
 }

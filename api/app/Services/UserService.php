@@ -31,7 +31,7 @@ class UserService
                 'data' => $data,
                 'trace' => $e->getTraceAsString()
             ]);
-            throw new \RuntimeException('Erro na criação do usuário: ', $e->getMessage());
+            throw new \RuntimeException('Erro na criação do usuário: ' . $e->getMessage());
         }
     }
 

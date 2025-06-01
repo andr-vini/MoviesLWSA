@@ -2,6 +2,8 @@ import { defineStore } from "pinia";
 import { favoritesService } from "@services/favorites";
 import { useToast } from "vue-toastification";
 
+const toast = useToast()
+
 export const useFavoritesStore = defineStore('favorites', {
     state: () => ({
         favorites: [],
@@ -29,16 +31,24 @@ export const useFavoritesStore = defineStore('favorites', {
                 if(index !== -1) {
                     this.favorites.splice(index, 1);
                 }
+                toast.success('Filme removido dos favoritos');
             }else{
                 const favorite = await favoritesService.addFavorite(movie)
                 this.favorites.push(favorite)
+                toast.success('Filme adicionado aos favoritos')
             }
         },
 
         async listFavorites() {
-            const favorites = await favoritesService.listFavorites();
-            this.favorites = favorites;
-            return favorites;
+            try{
+                const favorites = await favoritesService.listFavorites();
+                this.favorites = favorites;
+                return favorites;
+            } catch (error) {
+                toast.error('Erro ao listar filmes favoritos');
+                throw new Error(error);
+            }
+
         }
     }
 })

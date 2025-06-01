@@ -6,7 +6,7 @@ export const authService = {
 			const response = await api.post('/login', credentials)
 			return response.data
 		} catch (error) {
-			throw error.response || error
+			throw error?.response || error
 		}
 	},
 
@@ -15,7 +15,7 @@ export const authService = {
 			const response = await api.get('/user')
 			return response.data
 		} catch (error) {
-			throw error.response || error
+			throw error?.response || error
 		}
 	},
 	
@@ -24,7 +24,7 @@ export const authService = {
 			const response = await api.post('/register', credentials)
 			return response.data
 		} catch (error) {
-			throw error.response || error
+			throw error?.response || error
 		}
 	},
 
