@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue'
-import { useFavoritesStore } from '@store/favorites.js'
+import { useFavoritesStore } from '@stores/favorites.js'
 import imageNotFound from '@/assets/image-not-found.png'
 
 const favoritesStore = useFavoritesStore();

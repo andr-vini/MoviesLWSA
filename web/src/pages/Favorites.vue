@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue';
-import { useFavoritesStore } from '@store/favorites.js'
+import { useFavoritesStore } from '@stores/favorites.js'
 import { MovieGrid } from '@components/movies'
 import { useGenres } from '@/composables/useGenres'
 import LayoutDefault from '@components/layouts/LayoutDefault.vue'

@@ -1,7 +1,7 @@
 <script setup>
 import { markRaw } from 'vue'
 import { useRoute } from 'vue-router'
-import { useAsideNavStore } from '@store/asideNav'
+import { useAsideNavStore } from '@stores/asideNav'
 import { HomeIcon, FavoriteIcon } from '@components/icons'
 
 const asideNavStore = useAsideNavStore();

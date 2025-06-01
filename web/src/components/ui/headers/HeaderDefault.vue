@@ -1,9 +1,9 @@
 <script setup>
-import { useAsideNavStore } from '@store/asideNav'
-import { useAuthStore } from '@store/auth'
+import { useAsideNavStore } from '@stores/asideNav'
+import { useAuthStore } from '@stores/auth'
 import { useRouter } from 'vue-router'
 import { useToast } from 'vue-toastification'
-import { useFavoritesStore } from '@store/favorites'
+import { useFavoritesStore } from '@stores/favorites'
 import ButtonDefaultCancel from '@components/ui/buttons/ButtonDefaultCancel.vue'
 
 const asideNavStore = useAsideNavStore();

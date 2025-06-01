@@ -1,7 +1,7 @@
 <script setup>
-import { useAsideNavStore } from '@store/asideNav'
+import { useAsideNavStore } from '@stores/asideNav'
 import { onMounted, onUnmounted } from 'vue'
-import { useFavoritesStore } from '@store/favorites'
+import { useFavoritesStore } from '@stores/favorites'
 import AsideNav from '@components/ui/asides/AsideNav.vue'
 import HeaderDefault from '@components/ui/headers/HeaderDefault.vue'
 
