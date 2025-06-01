@@ -2,14 +2,16 @@ import { createRouter, createWebHistory } from "vue-router"
 import { useAuthStore } from "../stores/auth"
 import { useToast } from 'vue-toastification'
 
-import Home from "../pages/Home.vue"
-import Login from "../pages/Login.vue"
-import Register from "../pages/Register.vue"
+import Home from "@pages/Home.vue"
+import Login from "@pages/Login.vue"
+import Register from "@pages/Register.vue"
+import Favorites from "@pages/Favorites.vue"
 
 const routes = [
     { path: '/login', name: 'Login', component: Login, meta: { guest: true }},
     { path: '/register', name: 'Register', component: Register, meta: { guest: true }},
     { path: '/', name: 'Home', component: Home, meta: { requiresAuth: true }},
+    { path: '/favorites', name: 'Favorites', component: Favorites, meta: { requiresAuth: true }},
 ];
 
 const toast = useToast()

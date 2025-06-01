@@ -11,6 +11,7 @@ Route::post('/register', [AuthController::class, 'register']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/favorite', [MovieController::class, 'setFavorite']);
+    Route::delete('/favorite/{movieTmdbId}', [MovieController::class, 'removeFavorite']);
     Route::get('/favorites', [MovieController::class, 'getFavorites']);
     Route::get('/user', function (Request $request) {
         return $request->user();
