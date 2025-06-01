@@ -308,7 +308,7 @@ Mas você pode criar um usuário próprio na tela de registros
 Para executar os testes do Laravel:
 
 ```bash
-docker exec laravel_backend php artisan test
+docker exec -it laravel_backend php artisan test
 ```
 
 ### Documentação da API
