@@ -73,7 +73,6 @@ class MovieTest extends TestCase
         $auth = $this->authenticateUser();
 
         $movieData = [
-            // Missing required fields
             'title' => 'Test Movie',
         ];
 
@@ -88,7 +87,6 @@ class MovieTest extends TestCase
     {
         $auth = $this->authenticateUser();
 
-        // Create some test movies and add them to favorites
         $movie1 = Movie::factory()->create(['id_tmdb' => 111]);
         $movie2 = Movie::factory()->create(['id_tmdb' => 222]);
 
@@ -113,11 +111,9 @@ class MovieTest extends TestCase
     {
         $auth = $this->authenticateUser();
 
-        // Create a test movie and add it to favorites
         $movie = Movie::factory()->create(['id_tmdb' => 123456]);
         $auth['user']->favoritesMovies()->attach($movie->id);
 
-        // Verify it's in favorites
         $this->assertDatabaseHas('favorites', [
             'user_id' => $auth['user']->id,
             'movie_id' => $movie->id
@@ -129,7 +125,6 @@ class MovieTest extends TestCase
 
         $response->assertStatus(200);
 
-        // Verify it's removed from favorites
         $this->assertDatabaseMissing('favorites', [
             'user_id' => $auth['user']->id,
             'movie_id' => $movie->id
@@ -161,24 +156,19 @@ class MovieTest extends TestCase
 
     public function test_user_favorites_are_isolated_between_users()
     {
-        // Create two users
         $user1 = User::factory()->create();
         $user2 = User::factory()->create();
 
         $token1 = $user1->createToken('test-token')->plainTextToken;
         $token2 = $user2->createToken('test-token')->plainTextToken;
 
-        // Create movies
         $movie1 = Movie::factory()->create(['id_tmdb' => 111]);
         $movie2 = Movie::factory()->create(['id_tmdb' => 222]);
 
-        // User 1 favorites movie 1
         $user1->favoritesMovies()->attach($movie1->id);
 
-        // User 2 favorites movie 2
         $user2->favoritesMovies()->attach($movie2->id);
 
-        // Test user 1 only sees their favorites
         $response1 = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token1,
         ])->getJson('/api/favorites');
@@ -186,7 +176,6 @@ class MovieTest extends TestCase
         $response1->assertStatus(200)
             ->assertJsonCount(1);
 
-        // Test user 2 only sees their favorites
         $response2 = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token2,
         ])->getJson('/api/favorites');

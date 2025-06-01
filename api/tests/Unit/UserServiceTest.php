@@ -108,7 +108,6 @@ class UserServiceTest extends TestCase
             'password' => 'wrong_password'
         ];
 
-        // Create user but Auth::attempt will fail due to wrong password
         User::factory()->create([
             'email' => 'test_user_service_test@test_user_service_test.com',
             'password' => Hash::make('correct_password')
@@ -133,7 +132,6 @@ class UserServiceTest extends TestCase
 
         $this->assertTrue($result);
 
-        // Verify token is deleted
         $this->assertDatabaseMissing('personal_access_tokens', [
             'id' => $token->accessToken->id
         ]);
@@ -142,7 +140,6 @@ class UserServiceTest extends TestCase
     public function test_logout_throws_exception_when_no_token_provided()
     {
         $request = Request::create('/', 'POST');
-        // No Authorization header
 
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('Token não fornecido');

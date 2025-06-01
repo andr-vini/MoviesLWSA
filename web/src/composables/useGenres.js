@@ -27,7 +27,7 @@ export function useGenres() {
 			localStorage.setItem('tmdb_genres_cached_at', now.toString())
 
 		} catch (error) {
-			console.error('Failed to fetch genres:', error)
+			throw new Error(error);
 		} finally {
 			loading.value = false
 		}

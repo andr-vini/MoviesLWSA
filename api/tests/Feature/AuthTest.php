@@ -6,7 +6,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 
 class AuthTest extends TestCase
 {
@@ -54,11 +53,6 @@ class AuthTest extends TestCase
 
     public function test_user_can_login_with_valid_credentials()
     {
-        $user = User::factory()->create([
-            'email' => 'test@example.com',
-            'password' => Hash::make('password123'),
-        ]);
-
         $credentials = [
             'email' => 'test@example.com',
             'password' => 'password123',
@@ -76,11 +70,6 @@ class AuthTest extends TestCase
 
     public function test_user_cannot_login_with_invalid_credentials()
     {
-        $user = User::factory()->create([
-            'email' => 'test@example.com',
-            'password' => Hash::make('password123'),
-        ]);
-
         $credentials = [
             'email' => 'test@example.com',
             'password' => 'wrong_password',
