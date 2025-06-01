@@ -6,7 +6,7 @@ import { useGenres } from '@/composables/useGenres'
 import LayoutDefault from '@components/layouts/LayoutDefault.vue'
 import { InputSelect } from '../components/inputs';
 
-const { genres, loading, fetchGenres } = useGenres()
+const { genres, fetchGenres } = useGenres()
 const genderSelected = ref('all');
 
 onMounted(() => {
@@ -20,14 +20,14 @@ const filteredFavorites = computed(() => {
         return favoriteStore.favorites;
     }
     return favoriteStore.favorites.filter(fav =>
-        fav.genre_ids_tmdb.includes(Number(genderSelected.value)) // Number() se for número
+        fav.genre_ids_tmdb.includes(Number(genderSelected.value))
     );
 });
 </script>
 <template>
     <LayoutDefault>
         <div class="bg-slate-100 px-4 py-5 h-full space-y-5">
-            <InputSelect :options="genres" v-model="genderSelected" />
+            <InputSelect :options="genres" v-model="genderSelected" placeholder="Todos" />
             <MovieGrid :movies="filteredFavorites" />
         </div>
     </LayoutDefault>
